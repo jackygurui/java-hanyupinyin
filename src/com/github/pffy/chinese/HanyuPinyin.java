@@ -29,9 +29,9 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 /**
- * HanyuPinyin.java - Converts Chinese Characters and Hanyu Pinyin into pinyin
- * with tone marks, tone marks, or no tones.
- *  
+ * HanyuPinyin.java - Converts Chinese Characters and Hanyu Pinyin into pinyin with tone marks, tone
+ * marks, or no tones.
+ * 
  * @author The Pffy Authors
  * 
  */
@@ -58,6 +58,7 @@ public class HanyuPinyin {
 
   /**
    * Builds object and sets input string.
+   * 
    * @param str Chinese character or Hanyu Pinyin input
    */
   public HanyuPinyin(String str) {
@@ -65,21 +66,23 @@ public class HanyuPinyin {
     setInput(str);
   }
 
-  
+
   /**
    * Builds object, sets input string, and sets tone mode
+   * 
    * @param str - Chinese character or Hanyu Pinyin input
    * @param mode - tone mark display mode as Enum
    */
   public HanyuPinyin(String str, Tone mode) {
     init();
     this.toneMode = mode;
-    this.setInput(str);
+    setInput(str);
   }
 
-  
+
   /**
    * Builds object, sets input string, sets tone mode
+   * 
    * @param str - Chinese character or Hanyu Pinyin input
    * @param mode - tone mark display mode as number
    */
@@ -89,9 +92,10 @@ public class HanyuPinyin {
     setInput(str);
   }
 
-  
+
   /**
    * Returns string implementation of this object
+   * 
    * @return str - Hanyu Pinyin in specified tone mode
    */
   @Override
@@ -99,30 +103,33 @@ public class HanyuPinyin {
     return this.output;
   }
 
-  
+
   /**
    * Sets input string for conversion by the object
+   * 
    * @param str - input string for conversion
    * @return HanyuPinyin - this object
    */
   public HanyuPinyin setInput(String str) {
-    input = output = str;
+    this.input = normalizeUmlaut(str);
     convert();
     return this;
   }
 
-  
+
   /**
    * Returns input as a string
+   * 
    * @return str - input string
    */
   public String getInput() {
     return this.input;
   }
 
-  
+
   /**
    * Sets the tone display mode with an Enum type
+   * 
    * @param mode - tone display mode of enum type Tone
    * @return HanyuPinyin - this object
    */
@@ -132,28 +139,33 @@ public class HanyuPinyin {
     return this;
   }
 
-  
+
   /**
    * Sets the tone display mode with an integer
+   * 
    * @param mode - tone display mode of type integer
    * @return HanyuPinyin - this object
-   */  
+   */
   public HanyuPinyin setMode(int mode) {
     return setMode(toneMode.setModeValue(mode));
   }
 
-  
+
   /**
    * Returns tone display mode with an enum type Tone
+   * 
    * @return Tone - The enum Type called Tone
    */
   public Tone getMode() {
     return this.toneMode;
   }
 
-  
+
   // converts input based on class properties
   private void convert() {
+
+    String str;
+    str = input;
 
     Iterator<?> keys;
     String key;
@@ -163,7 +175,7 @@ public class HanyuPinyin {
     // converts Hanzi to Pinyin
     while (keys.hasNext()) {
       key = (String) keys.next();
-      output = output.replace(key, hpdx.getString(key) + " ");
+      str = str.replace(key, hpdx.getString(key) + " ");
     }
 
     // converts pinyin display based on tone mode setting
@@ -176,7 +188,7 @@ public class HanyuPinyin {
         // converts to tone marks
         while (keys.hasNext()) {
           key = (String) keys.next();
-          output = output.replace(key, tmdx.getString(key) + " ");
+          str = str.replace(key, tmdx.getString(key) + " ");
         }
 
         break;
@@ -187,7 +199,7 @@ public class HanyuPinyin {
         // remove all tone numbers and marks
         while (keys.hasNext()) {
           key = (String) keys.next();
-          output = output.replace(key, trdx.getString(key) + " ");
+          str = str.replace(key, trdx.getString(key) + " ");
         }
 
         break;
@@ -199,19 +211,18 @@ public class HanyuPinyin {
         // converts marks to numbers
         while (keys.hasNext()) {
           key = (String) keys.next();
-          output = output.replace(key, key + " ");
+          str = str.replace(key, key + " ");
         }
-
 
         break;
     }
 
-    atomize();
+    output = atomize(str);
   }
 
-  
+
   // atomizes pinyin, creating space between pinyin units
-  private void atomize() {
+  private String atomize(String str) {
     
     Iterator<?> keys;
     String key;
@@ -221,19 +232,24 @@ public class HanyuPinyin {
     // atomizes pin1yin1 -> pin1 yin1
     while (keys.hasNext()) {
       key = (String) keys.next();
-      output = output.replace(key, tmdx.getString(key) + " ");
+      str = str.replace(key, tmdx.getString(key) + " ");
     }
 
-    vacuum();
+    return vacuum(str);
   }
 
 
   // removes excess space between pinyin units
-  private void vacuum() {
-    output = output.replaceAll("   ", " ").replaceAll("  ", " ");
+  private String vacuum(String str) {
+    return str.replaceAll("   ", " ").replaceAll("  ", " ");
   }
 
-  
+  // normalizes umlaut u to double-u (uu)
+  private String normalizeUmlaut(String str) {
+    return str.replaceAll("ü", "uu").replaceAll("u:", "uu");
+  }
+
+
   // loads JSON idx files into JSONObjects
   private void init() {
 
@@ -259,4 +275,3 @@ public class HanyuPinyin {
   }
 
 }
-
