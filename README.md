@@ -18,15 +18,16 @@ Java implementation of Hanyu Pinyin object using the JSON-Java reference impleme
     + HanyuPinyin(String)
     + HanyuPinyin(String, Tone)
     + HanyuPinyin(String, int)
-    + toString()
-    + setInput(String)
-    + getInput()
-    + setMode(Tone)
-    + setMode(int)
-    + getMode()
-    - convert()
-    - atomize()
-    - vacuum()
-    - init()
+    + toString() : String
+    + setInput(String) : HanyuPinyin
+    + getInput() : String
+    + setMode(Tone) : HanyuPinyin
+    + setMode(int) : HanyuPinyin
+    - getMode() : Tone
+    - convert() : void
+    - atomize(String) : String
+    - vacuum(String) : String
+    - normalizeUmlaut(String) : String
+    - init() : void
 
 ```
