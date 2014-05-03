@@ -20,32 +20,40 @@
  * For more information, please refer to <http://unlicense.org/>
  */
 
-package com.github.pffy.chinese;
+package com.github.pffy.chinese.test;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import com.github.pffy.chinese.Tone;
 
 /**
- * Tone.java - Hanyu Pinyin tone display mode enumeration.
+ * ToneTest.java - JUnit Test Cases for Tone.java
  * 
  * @author The Pffy Authors
- * @version 0.2
  * 
  */
-
-public enum Tone {
-  TONE_NUMBERS(1), TONE_MARKS(2), TONES_OFF(3);
-
-  private int mode;
-
-  Tone(int mode) {
-    this.mode = mode;
-  }
-
+public class ToneTest {
 
   /**
-   * Returns the current enum mode corresponding to enum value
-   * 
-   * @return mode - returns current mode of enum type
+   * Test method for {@link com.github.pffy.chinese.Tone#Tone(int)}.
    */
-  public int getMode() {
-    return mode;
+  @Test
+  public void testTone() {
+    // no constructor for enum Type
   }
+
+  /**
+   * Test method for {@link com.github.pffy.chinese.Tone#getMode()}.
+   */
+  @Test
+  public void testGetMode() {
+
+    // true enum by definition, but just in case there are typos...
+    Assert.assertTrue(Tone.TONE_NUMBERS.getMode() == 1);
+    Assert.assertTrue(Tone.TONE_MARKS.getMode() == 2);
+    Assert.assertTrue(Tone.TONES_OFF.getMode() == 3);
+
+  }
+
 }

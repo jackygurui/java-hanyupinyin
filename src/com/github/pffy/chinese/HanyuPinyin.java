@@ -33,7 +33,7 @@ import org.json.JSONTokener;
  * marks, or no tones.
  * 
  * @author The Pffy Authors
- * @version 0.1
+ * @version 0.2
  * 
  */
 
@@ -48,7 +48,7 @@ public class HanyuPinyin {
   private JSONObject tmdx = new JSONObject();
   private JSONObject tndx = new JSONObject();
   private JSONObject trdx = new JSONObject();
-  private JSONObject tfdx = new JSONObject();  
+  private JSONObject tfdx = new JSONObject();
 
   /**
    * Builds this object.
@@ -77,16 +77,17 @@ public class HanyuPinyin {
    */
   public HanyuPinyin(String str, Tone mode) {
     init();
-    this.toneMode = mode;
+    setMode(mode);
     setInput(str);
   }
 
 
   /**
-   * Builds object, sets input string, sets tone mode
+   * Builds object, sets input string, and sets tone mode
    * 
    * @param str - Chinese character or Hanyu Pinyin input
-   * @param mode - tone mark display mode as number
+   * @param mode - tone mark display mode as n integer
+   * 
    */
   public HanyuPinyin(String str, int mode) {
     init();
@@ -94,7 +95,7 @@ public class HanyuPinyin {
     setInput(str);
   }
 
-
+  
   /**
    * Returns string implementation of this object
    * 
@@ -103,19 +104,6 @@ public class HanyuPinyin {
   @Override
   public String toString() {
     return this.output;
-  }
-
-
-  /**
-   * Sets input string for conversion by the object
-   * 
-   * @param str - input string for conversion
-   * @return HanyuPinyin - this object
-   */
-  public HanyuPinyin setInput(String str) {
-    this.input = normalizeUmlaut(str);
-    convert();
-    return this;
   }
 
 
@@ -130,26 +118,21 @@ public class HanyuPinyin {
 
 
   /**
-   * Sets the tone display mode with an Enum type
+   * Sets input string for conversion by the object
    * 
-   * @param mode - tone display mode of enum type Tone
+   * @param str - input string for conversion
    * @return HanyuPinyin - this object
    */
-  public HanyuPinyin setMode(Tone mode) {
-    this.toneMode = mode;
-    setInput(this.input);
+  public final HanyuPinyin setInput(String str) {
+
+    if (str == null) {
+      this.input = "";
+    } else {
+      this.input = normalizeUmlaut(str);
+    }
+
+    convert();
     return this;
-  }
-
-
-  /**
-   * Sets the tone display mode with an integer
-   * 
-   * @param mode - tone display mode of type integer
-   * @return HanyuPinyin - this object
-   */
-  public HanyuPinyin setMode(int mode) {
-    return setMode(toneMode.setModeValue(mode));
   }
 
 
@@ -163,14 +146,62 @@ public class HanyuPinyin {
   }
 
 
+  /**
+   * Sets the tone display mode with an Enum type
+   * 
+   * @param mode - tone display mode of enum type Tone
+   * @return HanyuPinyin - this object
+   */
+  public final HanyuPinyin setMode(Tone mode) {
+
+    if (mode == null) {
+      this.toneMode = Tone.TONE_NUMBERS;
+    } else {
+      this.toneMode = mode;
+    }
+    
+    convert();
+    return this;
+  }
+
+  /**
+   * Sets the tone display mode with an integer. 
+   * <p>
+   * 2 - TONE_MARKS; 3 - TONES_OFF; otherwise - TONE_NUMBERS
+   * 
+   * @param mode - tone display mode as an integer
+   * @return HanyuPinyin - this object
+   */
+  public final HanyuPinyin setMode(int mode) {
+
+    switch(mode)
+    {
+      case 2:
+        this.toneMode = Tone.TONE_MARKS;
+        break;
+      case 3:
+        this.toneMode = Tone.TONES_OFF;
+        break;
+      default:
+        this.toneMode = Tone.TONE_NUMBERS;
+        break;
+    }
+    
+    convert();
+    return this;
+  }
+
   // converts input based on class properties
   private void convert() {
 
     String str;
-    str = input;
+    Tone tone;
 
     Iterator<?> keys;
     String key;
+
+    str = input;
+    tone = toneMode;
 
     keys = hpdx.keys();
 
@@ -181,7 +212,7 @@ public class HanyuPinyin {
     }
 
     // converts pinyin display based on tone mode setting
-    switch (toneMode) {
+    switch (tone) {
 
       case TONE_MARKS:
 
@@ -200,7 +231,7 @@ public class HanyuPinyin {
           key = (String) keys.next();
           str = str.replace(key, tfdx.getString(key) + " ");
         }
-        
+
         break;
       case TONES_OFF:
 
@@ -212,7 +243,7 @@ public class HanyuPinyin {
           str = str.replace(key, trdx.getString(key) + " ");
         }
 
-        
+
         keys = tfdx.keys();
 
         // safely removes tone5
@@ -243,7 +274,7 @@ public class HanyuPinyin {
 
   // atomizes pinyin, creating space between pinyin units
   private String atomize(String str) {
-    
+
     Iterator<?> keys;
     String key;
 
@@ -264,37 +295,39 @@ public class HanyuPinyin {
     return str.replaceAll("   ", " ").replaceAll("  ", " ");
   }
 
+
   // normalizes umlaut u to double-u (uu)
   private String normalizeUmlaut(String str) {
     return str.replaceAll("ü", "uu").replaceAll("u:", "uu");
   }
 
 
-  // loads JSON idx files into JSONObjects
+  // startup method
   private void init() {
-
-    InputStream is;
 
     try {
 
-      is = HanyuPinyin.class.getResourceAsStream("/json/IdxHanyuPinyin.json");
-      hpdx = new JSONObject(new JSONTokener(is));
-
-      is = HanyuPinyin.class.getResourceAsStream("/json/IdxToneMarks.json");
-      tmdx = new JSONObject(new JSONTokener(is));
-
-      is = HanyuPinyin.class.getResourceAsStream("/json/IdxToneNumbers.json");
-      tndx = new JSONObject(new JSONTokener(is));
-
-      is = HanyuPinyin.class.getResourceAsStream("/json/IdxToneRemoval.json");
-      trdx = new JSONObject(new JSONTokener(is));
-      
-      is = HanyuPinyin.class.getResourceAsStream("/json/IdxToneFive.json");
-      tfdx = new JSONObject(new JSONTokener(is));
+      // load idx files
+      hpdx = loadIdx("/json/IdxHanyuPinyin.json");
+      tmdx = loadIdx("/json/IdxToneMarks.json");
+      tndx = loadIdx("/json/IdxToneNumbers.json");
+      trdx = loadIdx("/json/IdxToneRemoval.json");
+      tfdx = loadIdx("/json/IdxToneFive.json");
 
     } catch (Exception ex) {
       // failing silently is fine for now.
     }
   }
 
+  // loads JSON idx files into JSONObjects
+  private JSONObject loadIdx(String str) {
+
+    JSONObject jo;
+    InputStream is;
+
+    is = HanyuPinyin.class.getResourceAsStream(str);
+    jo = new JSONObject(new JSONTokener(is));
+
+    return jo;
+  }
 }
