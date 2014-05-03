@@ -33,6 +33,7 @@ import org.json.JSONTokener;
  * marks, or no tones.
  * 
  * @author The Pffy Authors
+ * @version 0.1
  * 
  */
 
@@ -47,6 +48,7 @@ public class HanyuPinyin {
   private JSONObject tmdx = new JSONObject();
   private JSONObject tndx = new JSONObject();
   private JSONObject trdx = new JSONObject();
+  private JSONObject tfdx = new JSONObject();  
 
   /**
    * Builds this object.
@@ -191,6 +193,14 @@ public class HanyuPinyin {
           str = str.replace(key, tmdx.getString(key) + " ");
         }
 
+        keys = tfdx.keys();
+
+        // safely removes tone5
+        while (keys.hasNext()) {
+          key = (String) keys.next();
+          str = str.replace(key, tfdx.getString(key) + " ");
+        }
+        
         break;
       case TONES_OFF:
 
@@ -202,6 +212,15 @@ public class HanyuPinyin {
           str = str.replace(key, trdx.getString(key) + " ");
         }
 
+        
+        keys = tfdx.keys();
+
+        // safely removes tone5
+        while (keys.hasNext()) {
+          key = (String) keys.next();
+          str = str.replace(key, tfdx.getString(key) + " ");
+        }
+
         break;
 
       default:
@@ -211,13 +230,14 @@ public class HanyuPinyin {
         // converts marks to numbers
         while (keys.hasNext()) {
           key = (String) keys.next();
-          str = str.replace(key, key + " ");
+          str = str.replace(key, tndx.getString(key) + " ");
         }
 
         break;
     }
 
-    output = atomize(str);
+    str = atomize(str);
+    output = str;
   }
 
 
@@ -232,7 +252,7 @@ public class HanyuPinyin {
     // atomizes pin1yin1 -> pin1 yin1
     while (keys.hasNext()) {
       key = (String) keys.next();
-      str = str.replace(key, tmdx.getString(key) + " ");
+      str = str.replace(key, key + " ");
     }
 
     return vacuum(str);
@@ -268,6 +288,9 @@ public class HanyuPinyin {
 
       is = HanyuPinyin.class.getResourceAsStream("/json/IdxToneRemoval.json");
       trdx = new JSONObject(new JSONTokener(is));
+      
+      is = HanyuPinyin.class.getResourceAsStream("/json/IdxToneFive.json");
+      tfdx = new JSONObject(new JSONTokener(is));
 
     } catch (Exception ex) {
       // failing silently is fine for now.

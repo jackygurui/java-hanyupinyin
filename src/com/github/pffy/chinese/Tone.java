@@ -30,6 +30,7 @@ package com.github.pffy.chinese;
 /**
  * Tone.java - Hanyu Pinyin tone display mode enumeration.
  * @author The Pffy Authors
+ * @version 0.1
  * 
  */
 
