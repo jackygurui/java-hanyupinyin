@@ -3,17 +3,24 @@ java-hanyupinyin
 
 Java implementation of Hanyu Pinyin object using the JSON-Java reference implementation
 
+## DEMO ##
+
+```java
+
+    // sandhi tone example (bad grammar, good test)
+    String str = "你是不是中国人吗是不是";
+    HanyuPinyin hp = new HanyuPinyin(str, Tone.TONE_MARKS);
+    
+    // nĭ shì bù shi zhōng guó rén ma shì bù shi 
+    System.out.println(hp);
+
+
+```
+
 ## SYNOPSIS ##
 
 ```
 
-    - output : String
-    - input : String
-    - toneMode : Tone
-    - hpdx : JSONObject
-    - tmdx : JSONObject
-    - tndx : JSONObject
-    - trdx : JSONObject
     + HanyuPinyin()
     + HanyuPinyin(String)
     + HanyuPinyin(String, Tone)
@@ -23,11 +30,5 @@ Java implementation of Hanyu Pinyin object using the JSON-Java reference impleme
     + getInput() : String
     + setMode(Tone) : HanyuPinyin
     + setMode(int) : HanyuPinyin
-    - getMode() : Tone
-    - convert() : void
-    - atomize(String) : String
-    - vacuum(String) : String
-    - normalizeUmlaut(String) : String
-    - init() : void
 
 ```
