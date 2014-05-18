@@ -33,12 +33,20 @@ import org.json.JSONTokener;
  * marks, or no tones.
  * 
  * @author The Pffy Authors
- * @version 0.2
+ * @version 1.0.1
  * 
  */
 
 public class HanyuPinyin {
 
+  private final String HPJSON = "/json/IdxHanyuPinyin.json";
+  private final String TMJSON = "/json/IdxToneMarks.json";
+  private final String TNJSON = "/json/IdxToneNumbers.json";
+  private final String TRJSON = "/json/IdxToneRemoval.json";
+  private final String TFJSON = "/json/IdxToneFive.json";
+
+  private final String FILE_NOT_LOADED = "File not loaded: ";
+  
   private String output = "";
   private String input = "";
 
@@ -49,14 +57,13 @@ public class HanyuPinyin {
   private JSONObject tndx = new JSONObject();
   private JSONObject trdx = new JSONObject();
   private JSONObject tfdx = new JSONObject();
-
+  
   /**
    * Builds this object.
    */
   public HanyuPinyin() {
     init();
   }
-
 
   /**
    * Builds object and sets input string.
@@ -67,7 +74,6 @@ public class HanyuPinyin {
     init();
     setInput(str);
   }
-
 
   /**
    * Builds object, sets input string, and sets tone mode
@@ -80,7 +86,6 @@ public class HanyuPinyin {
     setMode(mode);
     setInput(str);
   }
-
 
   /**
    * Builds object, sets input string, and sets tone mode
@@ -95,7 +100,6 @@ public class HanyuPinyin {
     setInput(str);
   }
 
-  
   /**
    * Returns string implementation of this object
    * 
@@ -106,7 +110,6 @@ public class HanyuPinyin {
     return this.output;
   }
 
-
   /**
    * Returns input as a string
    * 
@@ -115,7 +118,6 @@ public class HanyuPinyin {
   public String getInput() {
     return this.input;
   }
-
 
   /**
    * Sets input string for conversion by the object
@@ -135,7 +137,6 @@ public class HanyuPinyin {
     return this;
   }
 
-
   /**
    * Returns tone display mode with an enum type Tone
    * 
@@ -144,7 +145,6 @@ public class HanyuPinyin {
   public Tone getMode() {
     return this.toneMode;
   }
-
 
   /**
    * Sets the tone display mode with an Enum type
@@ -243,7 +243,6 @@ public class HanyuPinyin {
           str = str.replace(key, trdx.getString(key) + " ");
         }
 
-
         keys = tfdx.keys();
 
         // safely removes tone5
@@ -268,9 +267,8 @@ public class HanyuPinyin {
     }
 
     str = atomize(str);
-    output = str;
+    this.output = str;
   }
-
 
   // atomizes pinyin, creating space between pinyin units
   private String atomize(String str) {
@@ -289,10 +287,9 @@ public class HanyuPinyin {
     return vacuum(str);
   }
 
-
   // removes excess space between pinyin units
   private String vacuum(String str) {
-    return str.replaceAll("   ", " ").replaceAll("  ", " ");
+    return str.replaceAll("\\s{2,}", " ");
   }
 
 
@@ -308,14 +305,14 @@ public class HanyuPinyin {
     try {
 
       // load idx files
-      hpdx = loadIdx("/json/IdxHanyuPinyin.json");
-      tmdx = loadIdx("/json/IdxToneMarks.json");
-      tndx = loadIdx("/json/IdxToneNumbers.json");
-      trdx = loadIdx("/json/IdxToneRemoval.json");
-      tfdx = loadIdx("/json/IdxToneFive.json");
+      this.hpdx = loadIdx(this.HPJSON);
+      this.tmdx = loadIdx(this.TMJSON);
+      this.tndx = loadIdx(this.TNJSON);
+      this.trdx = loadIdx(this.TRJSON);
+      this.tfdx = loadIdx(this.TFJSON);
 
     } catch (Exception ex) {
-      // failing silently is fine for now.
+      System.out.println(this.FILE_NOT_LOADED + ex.getMessage());
     }
   }
 

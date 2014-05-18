@@ -23,10 +23,10 @@
 package com.github.pffy.chinese;
 
 /**
- * Tone.java - Hanyu Pinyin tone display mode enumeration.
+ * Tone.java - Hanyu Pinyin tone display modes.
  * 
  * @author The Pffy Authors
- * @version 0.2
+ * @version 1.0
  * 
  */
 
