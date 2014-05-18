@@ -3,7 +3,13 @@ java-hanyupinyin
 
 Java implementation of Hanyu Pinyin object using the JSON-Java reference implementation
 
-## DEMO ##
+## FEATURES 
+
+  + Convert Hanzi to Pinyin (Chinese characters to Hanyu Pinyin)
+  + Convert pinyin tone marks to tone numbers
+  + Convert pinyin tone numbers to tone marks
+
+## DEMO
 
 ```java
 
@@ -17,7 +23,7 @@ Java implementation of Hanyu Pinyin object using the JSON-Java reference impleme
 
 ```
 
-## SYNOPSIS ##
+## SYNOPSIS
 
 ```
 
