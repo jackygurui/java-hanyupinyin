@@ -23,29 +23,13 @@
 package com.github.pffy.chinese;
 
 /**
- * Tone.java - Hanyu Pinyin tone display modes.
+ * PinyinFormat.java - Hanyu Pinyin display formats for (Mandopop) lyrics or news.
  *
  * @author The Pffy Authors
  * @version 1.5
  *
  */
 
-public enum Tone {
-  TONE_NUMBERS(1), TONE_MARKS(2), TONES_OFF(3);
-
-  private int mode;
-
-  Tone(int mode) {
-    this.mode = mode;
-  }
-
-
-  /**
-   * Returns the current enum mode corresponding to enum value
-   *
-   * @return mode - returns current mode of enum type
-   */
-  public int getMode() {
-    return mode;
-  }
+public enum PinyinFormat {
+  SIMPLE, MANDOPOP;
 }

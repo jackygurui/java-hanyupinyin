@@ -33,7 +33,7 @@ import org.json.JSONTokener;
  * marks, or no tones.
  *
  * @author The Pffy Authors
- * @version 1.2
+ * @version 1.5
  *
  */
 
@@ -289,7 +289,7 @@ public class HanyuPinyin {
 
   // removes excess space between pinyin units
   private String vacuum(String str) {
-    return str.replaceAll("\\s{2,}", " ");
+    return str.replaceAll("[^\\S\\n]{2,}", " ");
   }
 
 
