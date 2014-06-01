@@ -1,22 +1,22 @@
 /*
  * This is free and unencumbered software released into the public domain.
- * 
+ *
  * Anyone is free to copy, modify, publish, use, compile, sell, or distribute this software, either
  * in source code form or as a compiled binary, for any purpose, commercial or non-commercial, and
  * by any means.
- * 
+ *
  * In jurisdictions that recognize copyright laws, the author or authors of this software dedicate
  * any and all copyright interest in the software to the public domain. We make this dedication for
  * the benefit of the public at large and to the detriment of our heirs and successors. We intend
  * this dedication to be an overt act of relinquishment in perpetuity of all present and future
  * rights to this software under copyright law.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- * 
+ *
  * For more information, please refer to <http://unlicense.org/>
  */
 
@@ -31,10 +31,10 @@ import org.json.JSONTokener;
 /**
  * HanyuPinyin.java - Converts Chinese Characters and Hanyu Pinyin into pinyin with tone marks, tone
  * marks, or no tones.
- * 
+ *
  * @author The Pffy Authors
- * @version 1.0.1
- * 
+ * @version 1.2
+ *
  */
 
 public class HanyuPinyin {
@@ -46,7 +46,7 @@ public class HanyuPinyin {
   private final String TFJSON = "/json/IdxToneFive.json";
 
   private final String FILE_NOT_LOADED = "File not loaded: ";
-  
+
   private String output = "";
   private String input = "";
 
@@ -57,7 +57,7 @@ public class HanyuPinyin {
   private JSONObject tndx = new JSONObject();
   private JSONObject trdx = new JSONObject();
   private JSONObject tfdx = new JSONObject();
-  
+
   /**
    * Builds this object.
    */
@@ -67,7 +67,7 @@ public class HanyuPinyin {
 
   /**
    * Builds object and sets input string.
-   * 
+   *
    * @param str Chinese character or Hanyu Pinyin input
    */
   public HanyuPinyin(String str) {
@@ -77,7 +77,7 @@ public class HanyuPinyin {
 
   /**
    * Builds object, sets input string, and sets tone mode
-   * 
+   *
    * @param str - Chinese character or Hanyu Pinyin input
    * @param mode - tone mark display mode as Enum
    */
@@ -89,10 +89,10 @@ public class HanyuPinyin {
 
   /**
    * Builds object, sets input string, and sets tone mode
-   * 
+   *
    * @param str - Chinese character or Hanyu Pinyin input
    * @param mode - tone mark display mode as n integer
-   * 
+   *
    */
   public HanyuPinyin(String str, int mode) {
     init();
@@ -102,7 +102,7 @@ public class HanyuPinyin {
 
   /**
    * Returns string implementation of this object
-   * 
+   *
    * @return str - Hanyu Pinyin in specified tone mode
    */
   @Override
@@ -112,7 +112,7 @@ public class HanyuPinyin {
 
   /**
    * Returns input as a string
-   * 
+   *
    * @return str - input string
    */
   public String getInput() {
@@ -121,7 +121,7 @@ public class HanyuPinyin {
 
   /**
    * Sets input string for conversion by the object
-   * 
+   *
    * @param str - input string for conversion
    * @return HanyuPinyin - this object
    */
@@ -139,7 +139,7 @@ public class HanyuPinyin {
 
   /**
    * Returns tone display mode with an enum type Tone
-   * 
+   *
    * @return Tone - The enum Type called Tone
    */
   public Tone getMode() {
@@ -148,7 +148,7 @@ public class HanyuPinyin {
 
   /**
    * Sets the tone display mode with an Enum type
-   * 
+   *
    * @param mode - tone display mode of enum type Tone
    * @return HanyuPinyin - this object
    */
@@ -159,16 +159,16 @@ public class HanyuPinyin {
     } else {
       this.toneMode = mode;
     }
-    
+
     convert();
     return this;
   }
 
   /**
-   * Sets the tone display mode with an integer. 
+   * Sets the tone display mode with an integer.
    * <p>
    * 2 - TONE_MARKS; 3 - TONES_OFF; otherwise - TONE_NUMBERS
-   * 
+   *
    * @param mode - tone display mode as an integer
    * @return HanyuPinyin - this object
    */
@@ -186,7 +186,7 @@ public class HanyuPinyin {
         this.toneMode = Tone.TONE_NUMBERS;
         break;
     }
-    
+
     convert();
     return this;
   }
