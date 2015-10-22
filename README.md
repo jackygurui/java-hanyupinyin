@@ -43,3 +43,10 @@ Java implementation of Hanyu Pinyin object using the JSON-Java reference impleme
     
 
 ```
+
+### Dependencies
+
++ Idx Files
+  + https://github.com/pffy/idx-json
+
+
