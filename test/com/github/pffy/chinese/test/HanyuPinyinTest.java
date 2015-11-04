@@ -82,8 +82,8 @@ public class HanyuPinyinTest {
 
     // expected
     Assert.assertTrue((new HanyuPinyin(null, 1)).getMode().equals(Tone.TONE_NUMBERS));
-    Assert.assertTrue((new HanyuPinyin(null, 2)).getMode().equals(Tone.TONE_MARKS));
-    Assert.assertTrue((new HanyuPinyin(null, 3)).getMode().equals(Tone.TONES_OFF));
+    Assert.assertTrue((new HanyuPinyin(null, 2)).getMode().equals(Tone.TONES_OFF));
+    Assert.assertTrue((new HanyuPinyin(null, 3)).getMode().equals(Tone.TONE_MARKS));
 
     // unexpected. goes to HanyuPinyin(String, Tone) constructor.
     Assert.assertTrue((new HanyuPinyin(null, null)).getMode().equals(Tone.TONE_NUMBERS));
@@ -161,8 +161,9 @@ public class HanyuPinyinTest {
 
     // expected integers
     Assert.assertTrue(hp.setMode(1).getMode() == Tone.TONE_NUMBERS);
-    Assert.assertTrue(hp.setMode(2).getMode() == Tone.TONE_MARKS);
-    Assert.assertTrue(hp.setMode(3).getMode() == Tone.TONES_OFF);
+    Assert.assertTrue(hp.setMode(2).getMode() == Tone.TONES_OFF);
+    Assert.assertTrue(hp.setMode(3).getMode() == Tone.TONE_MARKS);
+    
 
     // unexpected integers, set to Tone.TONE_NUMBERS
     Assert.assertTrue(hp.setMode(888).getMode() == Tone.TONE_NUMBERS);

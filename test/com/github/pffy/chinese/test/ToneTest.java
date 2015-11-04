@@ -51,8 +51,8 @@ public class ToneTest {
 
     // true enum by definition, but just in case there are typos...
     Assert.assertTrue(Tone.TONE_NUMBERS.getMode() == 1);
-    Assert.assertTrue(Tone.TONE_MARKS.getMode() == 2);
-    Assert.assertTrue(Tone.TONES_OFF.getMode() == 3);
+    Assert.assertTrue(Tone.TONES_OFF.getMode() == 2);
+    Assert.assertTrue(Tone.TONE_MARKS.getMode() == 3);
 
   }
 
