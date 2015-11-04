@@ -23,15 +23,16 @@
 package com.github.pffy.chinese;
 
 /**
- * Tone.java - Hanyu Pinyin tone display modes.
- *
- * @author The Pffy Authors
- * @version 1.5
+ * @name     : Tone.java
+ * @version  : 1.7
+ * @updated  : 2015-11-03
+ * @license  : http://unlicense.org/ The Unlicense
+ * @git      : https://github.com/pffy/java-hanyupinyin
+ * @notes    : Hanyu Pinyin tone display modes.
  *
  */
-
 public enum Tone {
-  TONE_NUMBERS(1), TONE_MARKS(2), TONES_OFF(3);
+  TONE_NUMBERS(1), TONES_OFF(2), TONE_MARKS(3);
 
   private int mode;
 

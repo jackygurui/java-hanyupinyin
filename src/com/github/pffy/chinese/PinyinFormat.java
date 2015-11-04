@@ -23,13 +23,14 @@
 package com.github.pffy.chinese;
 
 /**
- * PinyinFormat.java - Hanyu Pinyin display formats for (Mandopop) lyrics or news.
- *
- * @author The Pffy Authors
- * @version 1.5
+ * @name     : PinyinFormat.java
+ * @version  : 1.7
+ * @updated  : 2015-11-03
+ * @license  : http://unlicense.org/ The Unlicense
+ * @git      : https://github.com/pffy/java-hanyupinyin
+ * @notes    : Hanyu Pinyin display formats for (Mandopop) lyrics or news.
  *
  */
-
 public enum PinyinFormat {
   SIMPLE, MANDOPOP;
 }

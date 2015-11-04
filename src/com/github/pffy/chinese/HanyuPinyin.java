@@ -29,14 +29,14 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 /**
- * HanyuPinyin.java - Converts Chinese Characters and Hanyu Pinyin into pinyin with tone marks, tone
- * marks, or no tones.
- *
- * @author The Pffy Authors
- * @version 1.5
+ * @name     : PinyinFormat.java
+ * @version  : 1.7
+ * @updated  : 2015-11-03
+ * @license  : http://unlicense.org/ The Unlicense
+ * @git      : https://github.com/pffy/java-hanyupinyin
+ * @notes    : Converts Hanzi to Hanyu Pinyin with display options.
  *
  */
-
 public class HanyuPinyin {
 
   private final String HPJSON = "/json/IdxHanyuPinyin.json";
@@ -177,10 +177,10 @@ public class HanyuPinyin {
     switch(mode)
     {
       case 2:
-        this.toneMode = Tone.TONE_MARKS;
+        this.toneMode = Tone.TONES_OFF;
         break;
       case 3:
-        this.toneMode = Tone.TONES_OFF;
+        this.toneMode = Tone.TONE_MARKS;
         break;
       default:
         this.toneMode = Tone.TONE_NUMBERS;
