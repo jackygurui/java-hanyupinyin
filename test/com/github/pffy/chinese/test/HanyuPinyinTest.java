@@ -127,6 +127,22 @@ public class HanyuPinyinTest {
   }
 
   /**
+   * Test method for {@link com.github.pffy.chinese.HanyuPinyin#setInput(java.lang.String)}.
+   */
+  @Test
+  public void testSetInputHelloWorld() {
+
+    // hello world
+    String hw = "你好世界";
+    HanyuPinyin hp = new HanyuPinyin();
+    Assert.assertTrue(hp.setInput(hw).getInput() == hw);
+    
+    // confirm conversion took place
+    Assert.assertTrue(hp.setInput(hw).toString() != null);
+
+  }
+  
+  /**
    * Test method for {@link com.github.pffy.chinese.HanyuPinyin#getMode()}.
    */
   @Test
