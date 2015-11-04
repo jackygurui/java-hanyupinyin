@@ -92,7 +92,8 @@ public class HanyuPinyin {
    *
    * @param str - Chinese character or Hanyu Pinyin input
    * @param mode - tone mark display mode as n integer
-   *
+   * @deprecated since 1.7
+   * 
    */
   public HanyuPinyin(String str, int mode) {
     init();
@@ -171,6 +172,7 @@ public class HanyuPinyin {
    *
    * @param mode - tone display mode as an integer
    * @return HanyuPinyin - this object
+   * @deprecated since 1.7
    */
   public final HanyuPinyin setMode(int mode) {
 
