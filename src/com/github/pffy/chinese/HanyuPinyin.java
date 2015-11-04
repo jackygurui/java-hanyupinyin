@@ -40,7 +40,7 @@ import org.json.JSONTokener;
 public class HanyuPinyin {
 
   private final String HPJSON = "/json/IdxHanyuPinyin.json";
-  private final String TMJSON = "/json/IdxToneMarks.json";
+  private final String TMJSON = "/json/IdxToneMarksIso.json";
   private final String TNJSON = "/json/IdxToneNumbers.json";
   private final String TRJSON = "/json/IdxToneRemoval.json";
   private final String TFJSON = "/json/IdxToneFive.json";
