@@ -30,7 +30,7 @@ Java implementation of Hanyu Pinyin object using the JSON-Java reference impleme
     + HanyuPinyin()
     + HanyuPinyin(String)
     + HanyuPinyin(String, Tone)
-    + HanyuPinyin(String, int)
+    + ~~HanyuPinyin(String, int)~~ (DEPRECATED)
 
     + toString() : String
 
@@ -39,7 +39,7 @@ Java implementation of Hanyu Pinyin object using the JSON-Java reference impleme
 
     + getMode() : Tone
     + setMode(Tone) : HanyuPinyin
-    + setMode(int) : HanyuPinyin
+    + ~~setMode(int) : HanyuPinyin~~ (DEPRECATED)
     
 
 ```
