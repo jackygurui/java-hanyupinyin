@@ -4,3 +4,6 @@
 [submodule "org-json"]
 	path = org-json
 	url = git://github.com/pffy/JSON-java.git
+[submodule "resources/json"]
+	path = resources/json
+	url = https://github.com/pffy/idx-json
