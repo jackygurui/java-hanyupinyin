@@ -25,24 +25,20 @@ Java implementation of Hanyu Pinyin object using the JSON-Java reference impleme
 
 ## SYNOPSIS
 
-```
+  + HanyuPinyin()
+  + HanyuPinyin(String)
+  + HanyuPinyin(String, Tone)
+  + ~~HanyuPinyin(String, int)~~ (DEPRECATED)
 
-    + HanyuPinyin()
-    + HanyuPinyin(String)
-    + HanyuPinyin(String, Tone)
-    + ~~HanyuPinyin(String, int)~~ (DEPRECATED)
+  + toString() : String
 
-    + toString() : String
+  + getInput() : String
+  + setInput(String) : HanyuPinyin
 
-    + getInput() : String
-    + setInput(String) : HanyuPinyin
-
-    + getMode() : Tone
-    + setMode(Tone) : HanyuPinyin
-    + ~~setMode(int) : HanyuPinyin~~ (DEPRECATED)
+  + getMode() : Tone
+  + setMode(Tone) : HanyuPinyin
+  + ~~setMode(int) : HanyuPinyin~~ (DEPRECATED)
     
-
-```
 
 ### Dependencies
 
